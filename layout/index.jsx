@@ -1,6 +1,7 @@
 import { useSession, signIn, signOut } from "next-auth/react"
+import NavBar from "@/components/nav"
 
-export default function Home() {
+export default function Layout({children}) {
   const { data: session } = useSession()
   if(!session) {
     return (
@@ -12,9 +13,11 @@ export default function Home() {
     )
   } else {
     return (
-      <div>
-        <div>Logged in as {session?.user?.email}</div>
-        <button onClick={() => signOut()}>Sign out</button>
+      <div className="bg-blue-900 min-h-screen flex">
+        <NavBar/>
+        <div className="bg-white flex-grow mt-1 mr-2 rounded-lg p-4" style={{width: '100%'}}>
+            {children}
+        </div>
       </div>
       
     )
